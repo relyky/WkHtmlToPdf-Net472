@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace DinkToPdf
 {
-    public unsafe static class WkHtmlToXBindings
+    public static class WkHtmlToXBindings
     {
-        const string DLLNAME = "libwkhtmltox";
+        const string DLLNAME = "wkhtmltox";
 
         const CharSet CHARSET = CharSet.Unicode;
 
-        #region HTML to PDF bindings
         [DllImport(DLLNAME, CharSet = CHARSET, CallingConvention = CallingConvention.Cdecl)]
         public static extern int wkhtmltopdf_extended_qt();
         
@@ -37,10 +33,10 @@ namespace DinkToPdf
 
 
         [DllImport(DLLNAME, CharSet = CHARSET)]
-        public static unsafe extern int wkhtmltopdf_get_global_setting(IntPtr settings,
+        public static extern int wkhtmltopdf_get_global_setting(IntPtr settings,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string name,
-            byte* value, int valueSize);
+            IntPtr value, int valueSize);
 
         [DllImport(DLLNAME, CharSet = CHARSET, CallingConvention = CallingConvention.Cdecl)]
         public static extern int wkhtmltopdf_destroy_global_settings(IntPtr settings);
@@ -56,10 +52,10 @@ namespace DinkToPdf
             string value);
 
         [DllImport(DLLNAME, CharSet = CHARSET)]
-        public static unsafe extern int wkhtmltopdf_get_object_setting(IntPtr settings,
+        public static extern int wkhtmltopdf_get_object_setting(IntPtr settings,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string name,
-            byte* value, int valueSize);
+            IntPtr value, int valueSize);
         
         [DllImport(DLLNAME, CharSet = CHARSET, CallingConvention = CallingConvention.Cdecl)]
         public static extern int wkhtmltopdf_destroy_object_settings(IntPtr settings);
@@ -115,12 +111,5 @@ namespace DinkToPdf
 
         [DllImport(DLLNAME, CharSet = CHARSET, CallingConvention = CallingConvention.Cdecl)]
         public static extern int wkhtmltopdf_http_error_code(IntPtr converter);
-
-        #endregion
-
-        #region Image to  PDF bindings
-
-
-        #endregion
     }
 }

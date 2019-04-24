@@ -10,6 +10,6 @@ namespace DinkToPdf
     /// </summary>
     public enum CustomUnmanagedType
     {
-        LPUTF8Str=48
+        LPUTF8Str = 48
     }
 }

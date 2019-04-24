@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using DinkToPdf;
+using System.Runtime.Loader;
 
 namespace DinkToPdf.ConsoleApp
 {
@@ -40,7 +41,7 @@ namespace DinkToPdf.ConsoleApp
                     }
                 }
             };
-            
+
             byte[] pdf = converter.Convert(doc);
 
             if (!Directory.Exists("Files"))
@@ -48,12 +49,10 @@ namespace DinkToPdf.ConsoleApp
                 Directory.CreateDirectory("Files");
             }
 
-            using (FileStream stream = new FileStream(@"Files\" + DateTime.UtcNow.Ticks.ToString() + ".pdf", FileMode.Create))
+            using (var stream = new FileStream(Path.Combine("Files", DateTime.UtcNow.Ticks.ToString() + ".pdf"), FileMode.Create))
             {
                 stream.Write(pdf, 0, pdf.Length);
             }
-           
-            Console.ReadKey();
         }
 
         private static void Converter_Error(object sender, EventDefinitions.ErrorArgs e)

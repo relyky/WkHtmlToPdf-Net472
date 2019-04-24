@@ -1,26 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{96268FD4-5328-4959-8934-D5158ED9153D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C3B3252-A51E-4B1D-A3D1-43EB5A43A24B}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{54EA27C3-173F-43E1-B8B3-134DA04982E7}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DinkToPdf", "src\DinkToPdf\DinkToPdf.xproj", "{311B868A-98AF-41F9-B4AB-7F13BEE651BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkToPdf", "src\DinkToPdf\DinkToPdf.csproj", "{311B868A-98AF-41F9-B4AB-7F13BEE651BE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A8053F96-6858-43CF-9819-379814C2F727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkToPdf.TestConsoleApp", "samples\DinkToPdf.TestConsoleApp\DinkToPdf.TestConsoleApp.csproj", "{7370EBBF-F5E9-43BB-B987-44C2BAFFDBF1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{54EA27C3-173F-43E1-B8B3-134DA04982E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkToPdf.TestThreadSafe", "samples\DinkToPdf.TestThreadSafe\DinkToPdf.TestThreadSafe.csproj", "{7AB977DC-E9BE-42FE-834E-0170CB8A845C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DinkToPdf.TestConsoleApp", "DinkToPfd.TestConsoleApp\DinkToPdf.TestConsoleApp.xproj", "{7370EBBF-F5E9-43BB-B987-44C2BAFFDBF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkToPdf.TestWebServer", "samples\DinkToPdf.TestWebServer\DinkToPdf.TestWebServer.csproj", "{292A280A-24FD-41D9-867C-058E6EE6028F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DinkToPdf.TestThreadSafe", "DinkToPdf.TestThreadSafe\DinkToPdf.TestThreadSafe.xproj", "{7AB977DC-E9BE-42FE-834E-0170CB8A845C}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DinkToPdf.TestWebServer", "DinkToPdf.TestWebServer\DinkToPdf.TestWebServer.xproj", "{292A280A-24FD-41D9-867C-058E6EE6028F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkToPdf.TestConsoleAppDocker", "samples\DinkToPdf.TestConsoleAppDocker\DinkToPdf.TestConsoleAppDocker.csproj", "{01B76909-3DE4-4F17-A208-A37F23871999}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,16 +39,22 @@ Global
 		{292A280A-24FD-41D9-867C-058E6EE6028F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{292A280A-24FD-41D9-867C-058E6EE6028F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{292A280A-24FD-41D9-867C-058E6EE6028F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01B76909-3DE4-4F17-A208-A37F23871999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B76909-3DE4-4F17-A208-A37F23871999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B76909-3DE4-4F17-A208-A37F23871999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B76909-3DE4-4F17-A208-A37F23871999}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{311B868A-98AF-41F9-B4AB-7F13BEE651BE} = {96268FD4-5328-4959-8934-D5158ED9153D}
-		{A8053F96-6858-43CF-9819-379814C2F727} = {96268FD4-5328-4959-8934-D5158ED9153D}
-		{54EA27C3-173F-43E1-B8B3-134DA04982E7} = {96268FD4-5328-4959-8934-D5158ED9153D}
 		{7370EBBF-F5E9-43BB-B987-44C2BAFFDBF1} = {54EA27C3-173F-43E1-B8B3-134DA04982E7}
 		{7AB977DC-E9BE-42FE-834E-0170CB8A845C} = {54EA27C3-173F-43E1-B8B3-134DA04982E7}
 		{292A280A-24FD-41D9-867C-058E6EE6028F} = {54EA27C3-173F-43E1-B8B3-134DA04982E7}
+		{01B76909-3DE4-4F17-A208-A37F23871999} = {54EA27C3-173F-43E1-B8B3-134DA04982E7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AA59086-45D0-4FDC-BCA3-005F5E4FE501}
 	EndGlobalSection
 EndGlobal

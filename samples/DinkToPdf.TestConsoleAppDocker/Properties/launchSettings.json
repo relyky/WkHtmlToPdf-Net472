@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DinkToPdf.TestConsoleAppDocker": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

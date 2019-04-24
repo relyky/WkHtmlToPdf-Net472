@@ -5,26 +5,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Runtime.Loader;
+using System.Reflection;
+using System.IO;
 
 namespace DinkToPdf
 {
     public sealed class PdfTools : ITools
     {
+        private IWkHtmlModule module;
+
         public bool IsLoaded { get; private set; }
 
         public PdfTools()
         {
             IsLoaded = false;
         }
-        
-        public void Load() {
 
+        public void Load()
+        {
             if (IsLoaded)
             {
                 return;
             }
 
-            if (WkHtmlToXBindings.wkhtmltopdf_init(0) == 1)
+            this.module = new WkHtmlModule();
+
+            if (this.module.wkhtmltopdf_init(0) == 1)
             {
                 IsLoaded = true;
             }
@@ -32,100 +39,94 @@ namespace DinkToPdf
 
         public bool ExtendedQt()
         {
-            return WkHtmlToXBindings.wkhtmltopdf_extended_qt() == 1 ? true : false;
+            return this.module.wkhtmltopdf_extended_qt() == 1 ? true : false;
         }
 
         public string GetLibraryVersion()
         {
-            return Marshal.PtrToStringAnsi(WkHtmlToXBindings.wkhtmltopdf_version());
+            return Marshal.PtrToStringAnsi(this.module.wkhtmltopdf_version());
         }
 
         public IntPtr CreateGlobalSettings()
         {
-            return WkHtmlToXBindings.wkhtmltopdf_create_global_settings();
+            return this.module.wkhtmltopdf_create_global_settings();
         }
 
         public int SetGlobalSetting(IntPtr settings, string name, string value)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_set_global_setting(settings, name, value);
+            return this.module.wkhtmltopdf_set_global_setting(settings, name, value);
         }
 
-        public unsafe string GetGlobalSetting(IntPtr settings, string name)
+        public string GetGlobalSetting(IntPtr settings, string name)
         {
             //default const char * size is 2048 bytes 
             byte[] buffer = new byte[2048];
 
-            fixed (byte* tempBuffer = buffer  )
-            {
-                WkHtmlToXBindings.wkhtmltopdf_get_global_setting(settings, name, tempBuffer, buffer.Length);
-            }
+            this.module.wkhtmltopdf_get_global_setting(settings, name, buffer);
 
             return GetString(buffer);
         }
 
         public void DestroyGlobalSetting(IntPtr settings)
         {
-            WkHtmlToXBindings.wkhtmltopdf_destroy_global_settings(settings);
+            this.module.wkhtmltopdf_destroy_global_settings(settings);
         }
 
         public IntPtr CreateObjectSettings()
         {
-            return WkHtmlToXBindings.wkhtmltopdf_create_object_settings();
+            return this.module.wkhtmltopdf_create_object_settings();
         }
 
         public int SetObjectSetting(IntPtr settings, string name, string value)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_set_object_setting(settings, name, value);
+            return this.module.wkhtmltopdf_set_object_setting(settings, name, value);
         }
 
-        public unsafe string GetObjectSetting(IntPtr settings, string name)
+        public string GetObjectSetting(IntPtr settings, string name)
         {
             //default const char * size is 2048 bytes 
             byte[] buffer = new byte[2048];
 
-            fixed (byte* tempBuffer = buffer)
-            {
-                WkHtmlToXBindings.wkhtmltopdf_get_object_setting(settings, name, tempBuffer, buffer.Length);
-            }
+            this.module.wkhtmltopdf_get_object_setting(settings, name, buffer);
 
             return GetString(buffer);
         }
 
         public void DestroyObjectSetting(IntPtr settings)
         {
-            WkHtmlToXBindings.wkhtmltopdf_destroy_object_settings(settings);
+            this.module.wkhtmltopdf_destroy_object_settings(settings);
         }
 
         public IntPtr CreateConverter(IntPtr globalSettings)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_create_converter(globalSettings);
+            return this.module.wkhtmltopdf_create_converter(globalSettings);
         }
 
         public void AddObject(IntPtr converter, IntPtr objectSettings, byte[] data)
         {
-            WkHtmlToXBindings.wkhtmltopdf_add_object(converter, objectSettings, data);
+            this.module.wkhtmltopdf_add_object(converter, objectSettings, data);
         }
 
         public void AddObject(IntPtr converter, IntPtr objectSettings, string data)
         {
-            WkHtmlToXBindings.wkhtmltopdf_add_object(converter, objectSettings, data);
+            this.module.wkhtmltopdf_add_object(converter, objectSettings, data);
         }
 
         public bool DoConversion(IntPtr converter)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_convert(converter);
+            return this.module.wkhtmltopdf_convert(converter);
         }
 
         public void DestroyConverter(IntPtr converter)
         {
-             WkHtmlToXBindings.wkhtmltopdf_destroy_converter(converter);
+            this.module.wkhtmltopdf_destroy_converter(converter);
         }
 
         public byte[] GetConversionResult(IntPtr converter)
         {
             IntPtr resultPointer;
 
-            int length = WkHtmlToXBindings.wkhtmltopdf_get_output(converter, out resultPointer);
+            int length = this.module.wkhtmltopdf_get_output(converter, out resultPointer);
             var result = new byte[length];
             Marshal.Copy(resultPointer, result, 0, length);
 
@@ -134,47 +135,47 @@ namespace DinkToPdf
 
         public int SetPhaseChangedCallback(IntPtr converter, VoidCallback callback)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_set_phase_changed_callback(converter, callback);
+            return this.module.wkhtmltopdf_set_phase_changed_callback(converter, callback);
         }
 
         public int SetProgressChangedCallback(IntPtr converter, VoidCallback callback)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_set_progress_changed_callback(converter, callback);
+            return this.module.wkhtmltopdf_set_progress_changed_callback(converter, callback);
         }
 
         public int SetFinishedCallback(IntPtr converter, IntCallback callback)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_set_finished_callback(converter, callback);
+            return this.module.wkhtmltopdf_set_finished_callback(converter, callback);
         }
 
         public int SetWarningCallback(IntPtr converter, StringCallback callback)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_set_warning_callback(converter, callback);
+            return this.module.wkhtmltopdf_set_warning_callback(converter, callback);
         }
 
         public int SetErrorCallback(IntPtr converter, StringCallback callback)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_set_error_callback(converter, callback);
+            return this.module.wkhtmltopdf_set_error_callback(converter, callback);
         }
 
         public int GetPhaseCount(IntPtr converter)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_phase_count(converter);
+            return this.module.wkhtmltopdf_phase_count(converter);
         }
 
         public int GetCurrentPhase(IntPtr converter)
         {
-            return WkHtmlToXBindings.wkhtmltopdf_current_phase(converter);
+            return this.module.wkhtmltopdf_current_phase(converter);
         }
 
         public string GetPhaseDescription(IntPtr converter, int phase)
         {
-            return Marshal.PtrToStringAnsi(WkHtmlToXBindings.wkhtmltopdf_phase_description(converter, phase));
+            return Marshal.PtrToStringAnsi(this.module.wkhtmltopdf_phase_description(converter, phase));
         }
 
         public string GetProgressString(IntPtr converter)
         {
-            return Marshal.PtrToStringAnsi(WkHtmlToXBindings.wkhtmltopdf_progress_string(converter));
+            return Marshal.PtrToStringAnsi(this.module.wkhtmltopdf_progress_string(converter));
         }
 
         #region IDisposable Support
@@ -191,7 +192,7 @@ namespace DinkToPdf
                 }
 
                 //free unmanaged resources (unmanaged objects) and override a finalizer below.
-                WkHtmlToXBindings.wkhtmltopdf_deinit();
+                this.module.wkhtmltopdf_deinit();
                 // TODO: set large fields to null.
 
                 disposedValue = true;
