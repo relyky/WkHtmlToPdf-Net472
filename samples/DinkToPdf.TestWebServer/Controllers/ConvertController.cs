@@ -44,8 +44,7 @@ namespace DinkToPdf.TestWebServer.Controllers
            
             byte[] pdf = _converter.Convert(doc);
 
-
-            return new FileContentResult(pdf, "application/pdf");
+            return File(pdf, "application/pdf", "Test.pdf");
         }
     }
 }

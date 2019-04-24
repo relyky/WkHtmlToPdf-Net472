@@ -2,7 +2,6 @@
 using System;
 using System.Threading;
 using System.Collections.Concurrent;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DinkToPdf

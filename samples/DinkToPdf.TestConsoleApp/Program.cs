@@ -49,7 +49,7 @@ namespace DinkToPdf.ConsoleApp
                 Directory.CreateDirectory("Files");
             }
 
-            using (FileStream stream = new FileStream(@"Files\" + DateTime.UtcNow.Ticks.ToString() + ".pdf", FileMode.Create))
+            using (var stream = new FileStream(Path.Combine("Files", DateTime.UtcNow.Ticks.ToString() + ".pdf"), FileMode.Create))
             {
                 stream.Write(pdf, 0, pdf.Length);
             }

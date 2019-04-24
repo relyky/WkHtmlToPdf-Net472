@@ -14,7 +14,7 @@ namespace DinkToPdf.TestThreadSafe
         public static void Main(string[] args)
         {
             converter = new SynchronizedConverter(new PdfTools());
-            
+
             var doc = new HtmlToPdfDocument()
             {
                 GlobalSettings = {
@@ -31,7 +31,7 @@ namespace DinkToPdf.TestThreadSafe
             };
 
             Task.Run(() => Action(doc));
-            
+
             var doc2 = new HtmlToPdfDocument()
             {
                 GlobalSettings = {
@@ -61,7 +61,7 @@ namespace DinkToPdf.TestThreadSafe
                 Directory.CreateDirectory("Files");
             }
 
-            using (FileStream stream = new FileStream(@"Files\" + DateTime.UtcNow.Ticks.ToString() + ".pdf", FileMode.Create))
+            using (var stream = new FileStream(Path.Combine("Files", DateTime.UtcNow.Ticks.ToString() + ".pdf"), FileMode.Create))
             {
                 stream.Write(pdf, 0, pdf.Length);
             }

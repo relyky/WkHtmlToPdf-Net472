@@ -1,13 +1,7 @@
 ﻿using DinkToPdf.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Runtime.Loader;
-using System.Reflection;
-using System.IO;
 
 namespace DinkToPdf
 {
