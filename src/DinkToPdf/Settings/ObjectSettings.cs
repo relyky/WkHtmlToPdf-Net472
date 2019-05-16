@@ -47,33 +47,15 @@ namespace DinkToPdf
 
         public string HtmlContent { get; set; }
 
-        private WebSettings webSettings = new WebSettings();
+        public Encoding Encoding { get; set; }
 
-        public WebSettings WebSettings {
-            get { return webSettings; }
-            set { webSettings = value; }
-        }
+        public WebSettings WebSettings { get; set; } = new WebSettings();
 
-        private HeaderSettings headerSettings = new HeaderSettings();
+        public HeaderSettings HeaderSettings { get; set; } = new HeaderSettings();
 
-        public HeaderSettings HeaderSettings {
-            get { return headerSettings; }
-            set { headerSettings = value; }
-        }
+        public FooterSettings FooterSettings { get; set; } = new FooterSettings();
 
-        private FooterSettings footerSettings = new FooterSettings();
-
-        public FooterSettings FooterSettings {
-            get { return footerSettings; }
-            set { footerSettings = value; }
-        }
-
-        private LoadSettings loadSettings = new LoadSettings();
-
-        public LoadSettings LoadSettings {
-            get { return loadSettings; }
-            set { loadSettings = value; }
-        }
+        public LoadSettings LoadSettings { get; set; } = new LoadSettings();
 
         public byte[] GetContent()
         {
@@ -82,7 +64,7 @@ namespace DinkToPdf
                 return new byte[0];
             }
 
-            return Encoding.UTF8.GetBytes(HtmlContent);
+            return (Encoding ?? (Encoding.UTF8)).GetBytes(HtmlContent);
         }
     }
 }
