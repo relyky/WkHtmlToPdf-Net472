@@ -1,5 +1,6 @@
 ﻿using DinkToPdf.Contracts;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -10,6 +11,9 @@ namespace DinkToPdf
         private IWkHtmlModule module;
 
         public bool IsLoaded { get; private set; }
+
+        //used to maintain a reference to delegates to prevent them being garbage collected...
+        private List<object> delegates = new List<object>();
 
         public PdfTools()
         {
@@ -129,26 +133,36 @@ namespace DinkToPdf
 
         public int SetPhaseChangedCallback(IntPtr converter, VoidCallback callback)
         {
+            this.delegates.Add(callback);
+
             return this.module.wkhtmltopdf_set_phase_changed_callback(converter, callback);
         }
 
         public int SetProgressChangedCallback(IntPtr converter, VoidCallback callback)
         {
+            this.delegates.Add(callback);
+
             return this.module.wkhtmltopdf_set_progress_changed_callback(converter, callback);
         }
 
         public int SetFinishedCallback(IntPtr converter, IntCallback callback)
         {
+            this.delegates.Add(callback);
+
             return this.module.wkhtmltopdf_set_finished_callback(converter, callback);
         }
 
         public int SetWarningCallback(IntPtr converter, StringCallback callback)
         {
+            this.delegates.Add(callback);
+
             return this.module.wkhtmltopdf_set_warning_callback(converter, callback);
         }
 
         public int SetErrorCallback(IntPtr converter, StringCallback callback)
         {
+            this.delegates.Add(callback);
+
             return this.module.wkhtmltopdf_set_error_callback(converter, callback);
         }
 
