@@ -200,7 +200,7 @@ namespace DinkToPdf
                 }
 
                 //free unmanaged resources (unmanaged objects) and override a finalizer below.
-                this.module.wkhtmltopdf_deinit();
+                this.module?.wkhtmltopdf_deinit();
                 // TODO: set large fields to null.
 
                 disposedValue = true;
