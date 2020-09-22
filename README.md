@@ -12,10 +12,9 @@ PM> Install-Package Haukcode.WkHtmlToPdfDotNet
 ```
 
 
-### IMPORTANT
-Library was NOT tested with IIS. Library was tested in console applications and with Kestrel web server both for Web Application and Web API . 
+### Fork
+This library is forked from DinkToPdf. The main changes are to include the required native binaries in the package so they don't have to be manually installed, and renamed to a move appropriate project name. The license has also been corrected to match the license for the wkhtmltopdf parent project.
 
-### 
 
 ### Basic converter
 Use this converter in single threaded applications.
