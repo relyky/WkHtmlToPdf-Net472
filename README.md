@@ -3,6 +3,9 @@
 
 .NET Core P/Invoke wrapper for wkhtmltopdf library that uses Webkit engine to convert HTML pages to PDF.
 
+Has been successfully tested on Windows, Linux, MacOSX and docker. One of the examples is using this in docker.
+
+
 ### Install 
 
 Library can be installed through Nuget. Run command below from the package manager console:
@@ -10,10 +13,15 @@ Library can be installed through Nuget. Run command below from the package manag
 ```
 PM> Install-Package Haukcode.WkHtmlToPdfDotNet
 ```
+Note that with this NuGet package you don't need to manually add the native binaries to your project.
 
 
 ### Fork
 This library is forked from DinkToPdf. The main changes are to include the required native binaries in the package so they don't have to be manually installed, and renamed to a move appropriate project name. The license has also been corrected to match the license for the wkhtmltopdf parent project.
+
+
+### Building
+Download the binaries (of wkhtmltopdf) from Github Releases (currently version 0.12.5) and put them under `src\WkHtmlToPdf-DotNet` in the `runtimes` folder (with a sub folder for each platform). Note that these binaries are only needed when you build this project to generate the NuGet package, you will **not** need the binaries when **using** the NuGet package, they will be automatically added.
 
 
 ### Basic converter
