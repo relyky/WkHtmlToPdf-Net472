@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.0.8</VersionPrefix>
     <TargetFramework>netstandard1.6</TargetFramework>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -11,12 +10,12 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>1.1.2</Version>
+    <Version>1.1.3-test-dispose-fix</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>rdvojmoc, HakanL</Authors>
     <RepositoryUrl>https://github.com/HakanL/DinkToPdf</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>LGPL-3.0</PackageLicenseExpression>
     <Description>.NET Core P/Invoke wrapper for wkhtmltopdf library that uses Webkit engine to convert HTML pages to PDF.</Description>
   </PropertyGroup>
 
