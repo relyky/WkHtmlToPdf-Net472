@@ -10,7 +10,7 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>1.2.0-testbuild</Version>
+    <Version>1.2.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>rdvojmoc, HakanL</Authors>
     <RepositoryUrl>https://github.com/HakanL/WkHtmlToPdf-DotNet</RepositoryUrl>
@@ -18,6 +18,8 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <Description>.NET Core P/Invoke wrapper for wkhtmltopdf library that uses Webkit engine to convert HTML pages to PDF.</Description>
     <PackageProjectUrl>https://github.com/HakanL/WkHtmlToPdf-DotNet</PackageProjectUrl>
+    <PackageReleaseNotes>1.2.0 Renamed project and namespace to Haukcode.WkHtmlToPdfDotNet</PackageReleaseNotes>
+    <PackageTags>wkhtmltopdf htmltopdf html pdf</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
