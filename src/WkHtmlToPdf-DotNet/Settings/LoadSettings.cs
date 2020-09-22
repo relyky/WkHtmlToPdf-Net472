@@ -86,5 +86,11 @@ namespace WkHtmlToPdfDotNet
         /// </summary>
         [WkHtml("load.cookies")]
         public Dictionary<string, string> Cookies { get; set; }
+
+        /// <summary>
+        /// Post items
+        /// </summary>
+        [WkHtml("load.post")]
+        public Dictionary<string, string> Post { get; set; }
     }
 }
