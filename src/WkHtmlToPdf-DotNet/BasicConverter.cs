@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using DinkToPdf.Contracts;
-using DinkToPdf.EventDefinitions;
+using WkHtmlToPdfDotNet.Contracts;
+using WkHtmlToPdfDotNet.EventDefinitions;
 using System.Globalization;
 
-namespace DinkToPdf
+namespace WkHtmlToPdfDotNet
 {
     public class BasicConverter : IConverter
     {

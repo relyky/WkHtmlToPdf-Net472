@@ -1,10 +1,10 @@
-﻿using DinkToPdf.Contracts;
+﻿using WkHtmlToPdfDotNet.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace DinkToPdf
+namespace WkHtmlToPdfDotNet
 {
     public sealed class PdfTools : ITools
     {

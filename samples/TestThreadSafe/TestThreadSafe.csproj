@@ -2,14 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AssemblyName>DinkToPdf.TestThreadSafe</AssemblyName>
-    <ApplicationIcon />
+    <AssemblyName>TestThreadSafe</AssemblyName>
     <OutputType>Exe</OutputType>
-    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Haukcode.DinkToPdf" Version="1.1.0" />
+    <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

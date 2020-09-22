@@ -3,13 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>DinkToPdf.TestWebServer</AssemblyName>
+    <AssemblyName>TestWebServer</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>DinkToPdf.TestWebServer</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Haukcode.DinkToPdf" Version="1.1.0" />
+    <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />

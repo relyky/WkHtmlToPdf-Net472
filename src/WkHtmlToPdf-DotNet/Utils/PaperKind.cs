@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DinkToPdf
+namespace WkHtmlToPdfDotNet
 {
     /// <summary>
     /// Enumaration of paper kinds from  http://msdn.microsoft.com/en-us/library/system.drawing.printing.paperkind.aspx

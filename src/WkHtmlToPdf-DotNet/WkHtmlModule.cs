@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace DinkToPdf
+namespace WkHtmlToPdfDotNet
 {
     public class WkHtmlModule : IWkHtmlModule
     {

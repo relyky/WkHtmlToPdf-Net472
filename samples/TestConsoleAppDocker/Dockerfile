@@ -16,17 +16,17 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /src
-COPY ["DinkToPdf.TestConsoleAppDocker/DinkToPdf.TestConsoleAppDocker.csproj", "."]
-RUN dotnet restore -s "https://www.myget.org/F/haukcode-public/api/v3/index.json" -s "https://api.nuget.org/v3/index.json" "DinkToPdf.TestConsoleAppDocker.csproj"
-COPY DinkToPdf.TestConsoleAppDocker/*.cs ./
+COPY ["TestConsoleAppDocker/TestConsoleAppDocker.csproj", "."]
+RUN dotnet restore -s "https://www.myget.org/F/haukcode-public/api/v3/index.json" -s "https://api.nuget.org/v3/index.json" "TestConsoleAppDocker.csproj"
+COPY TestConsoleAppDocker/*.cs ./
 WORKDIR "/src"
-RUN dotnet build "DinkToPdf.TestConsoleAppDocker.csproj" -c Release -o /app
+RUN dotnet build "TestConsoleAppDocker.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "DinkToPdf.TestConsoleAppDocker.csproj" -c Release -o /app
+RUN dotnet publish "TestConsoleAppDocker.csproj" -c Release -o /app
 
 FROM base AS final
 
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "DinkToPdf.TestConsoleAppDocker.dll"]
+ENTRYPOINT ["dotnet", "TestConsoleAppDocker.dll"]

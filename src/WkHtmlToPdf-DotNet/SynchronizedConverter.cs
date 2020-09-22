@@ -1,10 +1,10 @@
-﻿using DinkToPdf.Contracts;
+﻿using WkHtmlToPdfDotNet.Contracts;
 using System;
 using System.Threading;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace DinkToPdf
+namespace WkHtmlToPdfDotNet
 {
     public class SynchronizedConverter : BasicConverter
     {

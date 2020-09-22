@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DinkToPdf
+namespace WkHtmlToPdfDotNet
 { 
     public class PechkinPaperSize
     {

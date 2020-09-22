@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DinkToPdf;
+using WkHtmlToPdfDotNet;
 
-namespace DinkToPdf.TestThreadSafe
+namespace WkHtmlToPdfDotNet.TestThreadSafe
 {
     public class Program
     {

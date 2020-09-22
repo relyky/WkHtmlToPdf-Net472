@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DinkToPdf
+namespace WkHtmlToPdfDotNet
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class WkHtmlAttribute : Attribute

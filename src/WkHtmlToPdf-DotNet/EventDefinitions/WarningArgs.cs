@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DinkToPdf.Contracts;
+using WkHtmlToPdfDotNet.Contracts;
 
-namespace DinkToPdf.EventDefinitions
+namespace WkHtmlToPdfDotNet.EventDefinitions
 {
     public class WarningArgs : EventArgs
     {

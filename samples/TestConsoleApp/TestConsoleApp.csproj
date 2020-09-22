@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AssemblyName>DinkToPdf.TestConsoleApp</AssemblyName>
+    <AssemblyName>TestConsoleApp</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>DinkToPdf.TestConsoleApp</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -12,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Haukcode.DinkToPdf" Version="1.1.0" />
+    <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

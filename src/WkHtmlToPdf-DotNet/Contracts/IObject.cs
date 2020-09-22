@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DinkToPdf.Contracts
+namespace WkHtmlToPdfDotNet.Contracts
 {
     public interface IObject : ISettings
     {

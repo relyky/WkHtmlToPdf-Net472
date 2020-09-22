@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DinkToPdf.Contracts
+namespace WkHtmlToPdfDotNet.Contracts
 {
     public interface ISettings
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
-using DinkToPdf;
+using WkHtmlToPdfDotNet;
 using System.Runtime.Loader;
 
-namespace DinkToPdf.ConsoleApp
+namespace WkHtmlToPdfDotNet.ConsoleApp
 {
     public class Program
     {

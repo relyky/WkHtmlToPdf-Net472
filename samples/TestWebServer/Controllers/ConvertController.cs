@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DinkToPdf.Contracts;
+using WkHtmlToPdfDotNet.Contracts;
 using System.IO;
 
-namespace DinkToPdf.TestWebServer.Controllers
+namespace WkHtmlToPdfDotNet.TestWebServer.Controllers
 {
     [Route("api/[controller]")]
     public class ConvertController : Controller
