@@ -1,5 +1,5 @@
 # WkHtmlToPdf-DotNet
-![NuGet Version](https://buildstats.info/nuget/Haukcode.WkHtmlToPdfDotNet)
+![NuGet Version](http://img.shields.io/nuget/v/Haukcode.WkHtmlToPdfDotNet.svg?style=flat)
 
 .NET Core P/Invoke wrapper for wkhtmltopdf library that uses Webkit engine to convert HTML pages to PDF.
 
