@@ -13,7 +13,7 @@ Library can be installed through Nuget. Run command below from the package manag
 ```
 PM> Install-Package Haukcode.WkHtmlToPdfDotNet
 ```
-Note that with this NuGet package you don't need to manually add the native binaries to your project.
+*Note that with this NuGet package you don't need to manually add the native binaries to your project.*
 
 
 ### Fork
