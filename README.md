@@ -17,7 +17,7 @@ PM> Install-Package Haukcode.WkHtmlToPdfDotNet
 
 
 ### Fork
-This library is forked from DinkToPdf. The main changes are to include the required native binaries in the package so they don't have to be manually installed, and renamed to a move appropriate project name. The license has also been corrected to match the license for the wkhtmltopdf parent project.
+This library is forked from DinkToPdf. The main changes are to include the required native binaries in the package so they don't have to be manually installed, and renamed to a more appropriate project name. The license has also been corrected to match the license for the wkhtmltopdf parent project.
 
 
 ### Building
