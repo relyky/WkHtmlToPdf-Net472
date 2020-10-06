@@ -1,0 +1,4 @@
+[submodule "src/WkHtmlToPdf-DotNet/runtimes"]
+	path = src/WkHtmlToPdf-DotNet/runtimes
+	url = git@github.com:HakanL/WkHtmlToPdf-DotNet-BIN.git
+	branch = 0672cce710c49402dc129e1da87a481c3bfcf55a
