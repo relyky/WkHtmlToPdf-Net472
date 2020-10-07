@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{96268FD4-5328-4959-8934-D5158ED9153D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{54EA27C3-173F-43E1-B8B3-134DA04982E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WkHtmlToPdf-DotNet", "src\WkHtmlToPdf-DotNet\WkHtmlToPdf-DotNet.csproj", "{311B868A-98AF-41F9-B4AB-7F13BEE651BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WkHtmlToPdf-DotNet", "WkHtmlToPdf-DotNet\WkHtmlToPdf-DotNet.csproj", "{311B868A-98AF-41F9-B4AB-7F13BEE651BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp", "samples\TestConsoleApp\TestConsoleApp.csproj", "{7370EBBF-F5E9-43BB-B987-44C2BAFFDBF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{7370EBBF-F5E9-43BB-B987-44C2BAFFDBF1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestThreadSafe", "samples\TestThreadSafe\TestThreadSafe.csproj", "{7AB977DC-E9BE-42FE-834E-0170CB8A845C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestThreadSafe", "TestThreadSafe\TestThreadSafe.csproj", "{7AB977DC-E9BE-42FE-834E-0170CB8A845C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWebServer", "samples\TestWebServer\TestWebServer.csproj", "{292A280A-24FD-41D9-867C-058E6EE6028F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWebServer", "TestWebServer\TestWebServer.csproj", "{292A280A-24FD-41D9-867C-058E6EE6028F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleAppDocker", "samples\TestConsoleAppDocker\TestConsoleAppDocker.csproj", "{01B76909-3DE4-4F17-A208-A37F23871999}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleAppDocker", "TestConsoleAppDocker\TestConsoleAppDocker.csproj", "{01B76909-3DE4-4F17-A208-A37F23871999}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{41513B73-E434-4864-80DC-4909E1558E49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,12 +43,15 @@ Global
 		{01B76909-3DE4-4F17-A208-A37F23871999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01B76909-3DE4-4F17-A208-A37F23871999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01B76909-3DE4-4F17-A208-A37F23871999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41513B73-E434-4864-80DC-4909E1558E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41513B73-E434-4864-80DC-4909E1558E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41513B73-E434-4864-80DC-4909E1558E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41513B73-E434-4864-80DC-4909E1558E49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{311B868A-98AF-41F9-B4AB-7F13BEE651BE} = {96268FD4-5328-4959-8934-D5158ED9153D}
 		{7370EBBF-F5E9-43BB-B987-44C2BAFFDBF1} = {54EA27C3-173F-43E1-B8B3-134DA04982E7}
 		{7AB977DC-E9BE-42FE-834E-0170CB8A845C} = {54EA27C3-173F-43E1-B8B3-134DA04982E7}
 		{292A280A-24FD-41D9-867C-058E6EE6028F} = {54EA27C3-173F-43E1-B8B3-134DA04982E7}
