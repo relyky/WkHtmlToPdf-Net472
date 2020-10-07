@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using WkHtmlToPdfDotNet;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WkHtmlToPdfDotNet.Contracts;
 
-namespace WkHtmlToPdfDotNet.TestThreadSafe
+namespace WkHtmlToPdfDotNet.UnitTests
 {
-    public class Program
+    [TestClass]
+    public class ThreadSafeTest
     {
-        static SynchronizedConverter converter;
+        private static IConverter Converter;
 
-        public static void Main(string[] args)
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
         {
-            converter = new SynchronizedConverter(new PdfTools());
+            Converter = new SynchronizedConverter(new PdfTools());
+        }
 
+        [TestMethod]
+        public void ConvertToPdf()
+        {
             var doc = new HtmlToPdfDocument()
             {
                 GlobalSettings = {
@@ -30,7 +37,7 @@ namespace WkHtmlToPdfDotNet.TestThreadSafe
                 }
             };
 
-            Task.Run(() => Action(doc));
+            var task1 = Task.Run(() => Action(doc));
 
             var doc2 = new HtmlToPdfDocument()
             {
@@ -47,14 +54,14 @@ namespace WkHtmlToPdfDotNet.TestThreadSafe
             };
 
 
-            Task.Run(() => Action(doc2));
+            var task2 = Task.Run(() => Action(doc2));
 
-            Console.ReadKey();
+            Task.WhenAll(task1, task2);
         }
 
-        private static void Action(HtmlToPdfDocument doc)
+        private void Action(HtmlToPdfDocument doc)
         {
-            byte[] pdf = converter.Convert(doc);
+            byte[] pdf = Converter.Convert(doc);
 
             if (!Directory.Exists("Files"))
             {

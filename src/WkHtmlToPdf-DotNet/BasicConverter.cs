@@ -11,7 +11,7 @@ namespace WkHtmlToPdfDotNet
 {
     public class BasicConverter : IConverter
     {
-        public readonly ITools Tools;
+        public ITools Tools { get; private set; }
 
         public IDocument ProcessingDocument { get; private set; }
 
@@ -25,7 +25,8 @@ namespace WkHtmlToPdfDotNet
 
         public event EventHandler<WarningArgs> Warning;
 
-        public BasicConverter(ITools tools) {
+        public BasicConverter(ITools tools)
+        {
             Tools = tools;
         }
 
@@ -37,13 +38,13 @@ namespace WkHtmlToPdfDotNet
             }
 
             ProcessingDocument = document;
-            
+
             byte[] result = new byte[0];
             Tools.Load();
 
             IntPtr converter = CreateConverter(document);
 
-            //register events
+            // Register events
             Tools.SetPhaseChangedCallback(converter, OnPhaseChanged);
             Tools.SetProgressChangedCallback(converter, OnProgressChanged);
             Tools.SetFinishedCallback(converter, OnFinished);
@@ -121,35 +122,33 @@ namespace WkHtmlToPdfDotNet
             Warning?.Invoke(this, eventArgs);
         }
 
-        private IntPtr CreateConverter(IDocument document) {
+        private IntPtr CreateConverter(IDocument document)
+        {
+            IntPtr converter;
 
-            IntPtr converter = IntPtr.Zero;
+            IntPtr settings = Tools.CreateGlobalSettings();
 
-            {
-                IntPtr settings = Tools.CreateGlobalSettings();
-                
-                ApplyConfig(settings, document, true);
+            ApplyConfig(settings, document, true);
 
-                converter = Tools.CreateConverter(settings);
-            }
-            
+            converter = Tools.CreateConverter(settings);
+
             foreach (var obj in document.GetObjects())
             {
                 if (obj != null)
                 {
-                    IntPtr settings = Tools.CreateObjectSettings();
+                    settings = Tools.CreateObjectSettings();
 
                     ApplyConfig(settings, obj, false);
 
                     Tools.AddObject(converter, settings, obj.GetContent());
                 }
             }
-            
+
             return converter;
         }
 
-        private void ApplyConfig(IntPtr config, ISettings settings, bool isGlobal) {
-
+        private void ApplyConfig(IntPtr config, ISettings settings, bool isGlobal)
+        {
             if (settings == null)
             {
                 return;
@@ -178,7 +177,6 @@ namespace WkHtmlToPdfDotNet
                 {
                     ApplyConfig(config, propValue as ISettings, isGlobal);
                 }
-
             }
         }
 
@@ -227,7 +225,6 @@ namespace WkHtmlToPdfDotNet
             {
                 applySetting(config, name, value.ToString());
             }
-            
         }
     }
 }

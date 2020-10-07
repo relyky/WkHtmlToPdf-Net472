@@ -3,22 +3,19 @@ using System;
 using System.Threading;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace WkHtmlToPdfDotNet
 {
     public class SynchronizedConverter : BasicConverter
     {
-        Thread conversionThread;
-
-        BlockingCollection<Task> conversions = new BlockingCollection<Task>();
-
-        bool kill = false;
-
+        private Thread conversionThread;
+        private readonly BlockingCollection<Task> conversions = new BlockingCollection<Task>();
+        private bool kill = false;
         private readonly object startLock = new object();
 
         public SynchronizedConverter(ITools tools) : base(tools)
         {
-
         }
 
         public override byte[] Convert(IDocument document)
@@ -30,12 +27,12 @@ namespace WkHtmlToPdfDotNet
         {
             StartThread();
 
-            Task<TResult> task = new Task<TResult>(@delegate);
+            var task = new Task<TResult>(@delegate);
 
             lock (task)
             {
                 //add task to blocking collection
-                conversions.Add(task);
+                this.conversions.Add(task);
 
                 //wait for task to be processed by conversion thread 
                 Monitor.Wait(task);
@@ -52,45 +49,47 @@ namespace WkHtmlToPdfDotNet
 
         private void StartThread()
         {
-            lock (startLock)
+            lock (this.startLock)
             {
-                if (conversionThread == null)
+                if (this.conversionThread == null)
                 {
-                    conversionThread = new Thread(Run)
+                    this.conversionThread = new Thread(Run)
                     {
                         IsBackground = true,
                         Name = "wkhtmltopdf worker thread"
                     };
 
-                    kill = false;
+                    this.kill = false;
 
-                    conversionThread.Start();
+                    this.conversionThread.Start();
                 }
             }
         }
-        
+
         private void StopThread()
         {
-            lock (startLock)
+            lock (this.startLock)
             {
-                if (conversionThread != null)
+                if (this.conversionThread != null)
                 {
-                    kill = true;
+                    this.kill = true;
 
-                    while (conversionThread.ThreadState == ThreadState.Stopped)
-                    { }
+                    while (this.conversionThread.ThreadState != ThreadState.Stopped)
+                    {
+                        Thread.Sleep(1);
+                    }
 
-                    conversionThread = null;
+                    this.conversionThread = null;
                 }
             }
         }
 
         private void Run()
         {
-            while (!kill)
+            while (!this.kill)
             {
                 //get next conversion taks from blocking collection
-                Task task = conversions.Take();
+                Task task = this.conversions.Take();
 
                 lock (task)
                 {

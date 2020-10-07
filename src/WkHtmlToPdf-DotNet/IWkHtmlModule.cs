@@ -8,78 +8,80 @@ namespace WkHtmlToPdfDotNet
 {
     public interface IWkHtmlModule
     {
-        int wkhtmltopdf_extended_qt();
+        int ExtendedQT();
 
-        IntPtr wkhtmltopdf_version();
+        IntPtr Version();
 
-        int wkhtmltopdf_init(int useGraphics);
+        int Init(int useGraphics);
 
-        int wkhtmltopdf_deinit();
+        int DeInit();
 
-        IntPtr wkhtmltopdf_create_global_settings();
+        IntPtr CreateGlobalSettings();
 
-        int wkhtmltopdf_set_global_setting(IntPtr settings,
+        int SetGlobalSetting(IntPtr settings,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string name,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string value);
 
-        int wkhtmltopdf_get_global_setting(IntPtr settings,
+        int GetGlobalSetting(IntPtr settings,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string name,
-            byte[] array);
+            IntPtr value,
+            int valueSize);
 
-        int wkhtmltopdf_destroy_global_settings(IntPtr settings);
+        int DestroyGlobalSettings(IntPtr settings);
 
-        IntPtr wkhtmltopdf_create_object_settings();
+        IntPtr CreateObjectSettings();
 
-        int wkhtmltopdf_set_object_setting(IntPtr settings,
+        int SetObjectSetting(IntPtr settings,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string name,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string value);
 
-        int wkhtmltopdf_get_object_setting(IntPtr settings,
+        int GetObjectSetting(IntPtr settings,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)]
             string name,
-            byte[] array);
+            IntPtr value,
+            int valueSize);
 
-        int wkhtmltopdf_destroy_object_settings(IntPtr settings);
+        int DestroyObjectSettings(IntPtr settings);
 
-        IntPtr wkhtmltopdf_create_converter(IntPtr globalSettings);
+        IntPtr CreateConverter(IntPtr globalSettings);
 
-        void wkhtmltopdf_add_object(IntPtr converter,
+        void AddObject(IntPtr converter,
             IntPtr objectSettings,
             byte[] data);
 
-        void wkhtmltopdf_add_object(IntPtr converter,
+        void AddObject(IntPtr converter,
             IntPtr objectSettings,
             [MarshalAs((short)CustomUnmanagedType.LPUTF8Str)] string data);
 
-        bool wkhtmltopdf_convert(IntPtr converter);
+        bool Convert(IntPtr converter);
 
-        void wkhtmltopdf_destroy_converter(IntPtr converter);
+        void DestroyConverter(IntPtr converter);
 
-        int wkhtmltopdf_get_output(IntPtr converter, out IntPtr data);
+        int GetOutput(IntPtr converter, out IntPtr data);
 
-        int wkhtmltopdf_set_phase_changed_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] VoidCallback callback);
+        int SetPhaseChangedCallback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] VoidCallback callback);
 
-        int wkhtmltopdf_set_progress_changed_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] VoidCallback callback);
+        int SetProgressChangedCallback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] VoidCallback callback);
 
-        int wkhtmltopdf_set_finished_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] IntCallback callback);
+        int SetFinishedCallback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] IntCallback callback);
 
-        int wkhtmltopdf_set_warning_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] StringCallback callback);
+        int SetWarningCallback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] StringCallback callback);
 
-        int wkhtmltopdf_set_error_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] StringCallback callback);
+        int SetErrorCallback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] StringCallback callback);
 
-        int wkhtmltopdf_phase_count(IntPtr converter);
+        int PhaseCount(IntPtr converter);
 
-        int wkhtmltopdf_current_phase(IntPtr converter);
+        int CurrentPhase(IntPtr converter);
 
-        IntPtr wkhtmltopdf_phase_description(IntPtr converter, int phase);
+        IntPtr PhaseDescription(IntPtr converter, int phase);
 
-        IntPtr wkhtmltopdf_progress_string(IntPtr converter);
+        IntPtr ProgressString(IntPtr converter);
 
-        int wkhtmltopdf_http_error_code(IntPtr converter);
+        int HttpErrorCode(IntPtr converter);
     }
 }

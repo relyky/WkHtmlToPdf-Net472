@@ -8,17 +8,17 @@ using System.IO;
 
 namespace WkHtmlToPdfDotNet.TestWebServer.Controllers
 {
-    [Route("api/[controller]")]
-    public class ConvertController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ConvertController : ControllerBase
     {
-        private IConverter _converter;
+        private readonly IConverter converter;
 
         public ConvertController(IConverter converter)
         {
-            _converter = converter;
+            this.converter = converter;
         }
 
-        // GET api/values
         [HttpGet]
         public IActionResult Get()
         {
@@ -37,12 +37,12 @@ namespace WkHtmlToPdfDotNet.TestWebServer.Controllers
                      new ObjectSettings()
                     {
                         Page = "https://github.com/",
-                         
+
                     }
                 }
             };
-           
-            byte[] pdf = _converter.Convert(doc);
+
+            byte[] pdf = this.converter.Convert(doc);
 
             return File(pdf, "application/pdf", "Test.pdf");
         }

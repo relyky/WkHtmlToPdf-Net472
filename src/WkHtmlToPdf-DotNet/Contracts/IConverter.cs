@@ -26,5 +26,6 @@ namespace WkHtmlToPdfDotNet.Contracts
 
         event EventHandler<WarningArgs> Warning;
 
+        ITools Tools { get; }
     }
 }

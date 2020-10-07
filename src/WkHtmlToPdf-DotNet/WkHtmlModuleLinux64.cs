@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace WkHtmlToPdfDotNet
 {
-    internal class WkHtmlModule : IWkHtmlModule
+    internal class WkHtmlModuleLinux64 : IWkHtmlModule
     {
-        public WkHtmlModule()
+        public WkHtmlModuleLinux64()
         {
             // Test
             Version();
@@ -73,7 +73,7 @@ namespace WkHtmlToPdfDotNet
 
         public int HttpErrorCode(IntPtr converter) => wkhtmltopdf_http_error_code(converter);
 
-        const string DLLNAME = "wkhtmltox";
+        public const string DLLNAME = "runtimes/linux-x64/native/libwkhtmltox";
 
         const CharSet CHARSET = CharSet.Unicode;
 

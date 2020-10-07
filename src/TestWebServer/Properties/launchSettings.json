@@ -1,9 +1,10 @@
 {
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50554/",
+      "applicationUrl": "http://localhost:50554/convert",
       "sslPort": 0
     }
   },
@@ -19,7 +20,7 @@
     "TestWebServer": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/values",
+      "launchUrl": "http://localhost:5000/convert",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

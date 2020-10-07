@@ -3,17 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Reflection;
+using System.Collections.Concurrent;
 
 namespace WkHtmlToPdfDotNet
 {
     public sealed class PdfTools : ITools
     {
         private IWkHtmlModule module;
+        // Used to maintain a reference to delegates to prevent them being garbage collected
+        private readonly ConcurrentDictionary<IntPtr, List<object>> delegates = new ConcurrentDictionary<IntPtr, List<object>>();
 
         public bool IsLoaded { get; private set; }
-
-        //used to maintain a reference to delegates to prevent them being garbage collected...
-        private List<object> delegates = new List<object>();
 
         public PdfTools()
         {
@@ -27,9 +28,9 @@ namespace WkHtmlToPdfDotNet
                 return;
             }
 
-            this.module = new WkHtmlModule();
+            this.module = ModuleFactory.GetModule();
 
-            if (this.module.wkhtmltopdf_init(0) == 1)
+            if (this.module.Init(0) == 1)
             {
                 IsLoaded = true;
             }
@@ -37,153 +38,204 @@ namespace WkHtmlToPdfDotNet
 
         public bool ExtendedQt()
         {
-            return this.module.wkhtmltopdf_extended_qt() == 1 ? true : false;
+            return this.module.ExtendedQT() == 1;
         }
 
         public string GetLibraryVersion()
         {
-            return Marshal.PtrToStringAnsi(this.module.wkhtmltopdf_version());
+            return Marshal.PtrToStringAnsi(this.module.Version());
         }
 
         public IntPtr CreateGlobalSettings()
         {
-            return this.module.wkhtmltopdf_create_global_settings();
+            return this.module.CreateGlobalSettings();
         }
 
         public int SetGlobalSetting(IntPtr settings, string name, string value)
         {
-            return this.module.wkhtmltopdf_set_global_setting(settings, name, value);
+            return this.module.SetGlobalSetting(settings, name, value);
         }
 
         public string GetGlobalSetting(IntPtr settings, string name)
         {
-            //default const char * size is 2048 bytes 
+            // Default const char * size is 2048 bytes 
             byte[] buffer = new byte[2048];
 
-            this.module.wkhtmltopdf_get_global_setting(settings, name, buffer);
+            int size = Marshal.SizeOf(buffer[0]) * buffer.Length;
+            IntPtr pnt = Marshal.AllocHGlobal(size);
+
+            try
+            {
+                // Copy the array to unmanaged memory
+                Marshal.Copy(buffer, 0, pnt, buffer.Length);
+
+                this.module.GetGlobalSetting(settings, name, pnt, size);
+
+                // And copy back the result from unmanaged memory
+                Marshal.Copy(pnt, buffer, 0, size);
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
 
             return GetString(buffer);
         }
 
         public void DestroyGlobalSetting(IntPtr settings)
         {
-            this.module.wkhtmltopdf_destroy_global_settings(settings);
+            this.module.DestroyGlobalSettings(settings);
         }
 
         public IntPtr CreateObjectSettings()
         {
-            return this.module.wkhtmltopdf_create_object_settings();
+            return this.module.CreateObjectSettings();
         }
 
         public int SetObjectSetting(IntPtr settings, string name, string value)
         {
-            return this.module.wkhtmltopdf_set_object_setting(settings, name, value);
+            return this.module.SetObjectSetting(settings, name, value);
         }
 
         public string GetObjectSetting(IntPtr settings, string name)
         {
-            //default const char * size is 2048 bytes 
+            // Default const char * size is 2048 bytes 
             byte[] buffer = new byte[2048];
 
-            this.module.wkhtmltopdf_get_object_setting(settings, name, buffer);
+            int size = Marshal.SizeOf(buffer[0]) * buffer.Length;
+            IntPtr pnt = Marshal.AllocHGlobal(size);
+
+            try
+            {
+                // Copy the array to unmanaged memory
+                Marshal.Copy(buffer, 0, pnt, buffer.Length);
+
+                this.module.GetObjectSetting(settings, name, pnt, size);
+
+                // And copy back the result from unmanaged memory
+                Marshal.Copy(pnt, buffer, 0, size);
+            }
+            finally
+            {
+                // Free the unmanaged memory.
+                Marshal.FreeHGlobal(pnt);
+            }
 
             return GetString(buffer);
         }
 
         public void DestroyObjectSetting(IntPtr settings)
         {
-            this.module.wkhtmltopdf_destroy_object_settings(settings);
+            this.module.DestroyObjectSettings(settings);
         }
 
         public IntPtr CreateConverter(IntPtr globalSettings)
         {
-            return this.module.wkhtmltopdf_create_converter(globalSettings);
+            return this.module.CreateConverter(globalSettings);
         }
 
         public void AddObject(IntPtr converter, IntPtr objectSettings, byte[] data)
         {
-            this.module.wkhtmltopdf_add_object(converter, objectSettings, data);
+            this.module.AddObject(converter, objectSettings, data);
         }
 
         public void AddObject(IntPtr converter, IntPtr objectSettings, string data)
         {
-            this.module.wkhtmltopdf_add_object(converter, objectSettings, data);
+            this.module.AddObject(converter, objectSettings, data);
         }
 
         public bool DoConversion(IntPtr converter)
         {
-            return this.module.wkhtmltopdf_convert(converter);
+            return this.module.Convert(converter);
         }
 
         public void DestroyConverter(IntPtr converter)
         {
-            this.module.wkhtmltopdf_destroy_converter(converter);
+            // Delete delegates
+            this.delegates.TryRemove(converter, out var l);
+            l?.Clear();
+
+            this.module.DestroyConverter(converter);
         }
 
         public byte[] GetConversionResult(IntPtr converter)
         {
             IntPtr resultPointer;
 
-            int length = this.module.wkhtmltopdf_get_output(converter, out resultPointer);
+            int length = this.module.GetOutput(converter, out resultPointer);
             var result = new byte[length];
             Marshal.Copy(resultPointer, result, 0, length);
 
             return result;
         }
 
+        private void AddCallback(IntPtr converter, object callback)
+        {
+            if (!this.delegates.TryGetValue(converter, out var list))
+            {
+                list = new List<object>();
+                this.delegates.TryAdd(converter, list);
+
+                this.delegates.TryGetValue(converter, out list);
+            }
+
+            list.Add(callback);
+        }
+
         public int SetPhaseChangedCallback(IntPtr converter, VoidCallback callback)
         {
-            this.delegates.Add(callback);
+            AddCallback(converter, callback);
 
-            return this.module.wkhtmltopdf_set_phase_changed_callback(converter, callback);
+            return this.module.SetPhaseChangedCallback(converter, callback);
         }
 
         public int SetProgressChangedCallback(IntPtr converter, VoidCallback callback)
         {
-            this.delegates.Add(callback);
+            AddCallback(converter, callback);
 
-            return this.module.wkhtmltopdf_set_progress_changed_callback(converter, callback);
+            return this.module.SetProgressChangedCallback(converter, callback);
         }
 
         public int SetFinishedCallback(IntPtr converter, IntCallback callback)
         {
-            this.delegates.Add(callback);
+            AddCallback(converter, callback);
 
-            return this.module.wkhtmltopdf_set_finished_callback(converter, callback);
+            return this.module.SetFinishedCallback(converter, callback);
         }
 
         public int SetWarningCallback(IntPtr converter, StringCallback callback)
         {
-            this.delegates.Add(callback);
+            AddCallback(converter, callback);
 
-            return this.module.wkhtmltopdf_set_warning_callback(converter, callback);
+            return this.module.SetWarningCallback(converter, callback);
         }
 
         public int SetErrorCallback(IntPtr converter, StringCallback callback)
         {
-            this.delegates.Add(callback);
+            AddCallback(converter, callback);
 
-            return this.module.wkhtmltopdf_set_error_callback(converter, callback);
+            return this.module.SetErrorCallback(converter, callback);
         }
 
         public int GetPhaseCount(IntPtr converter)
         {
-            return this.module.wkhtmltopdf_phase_count(converter);
+            return this.module.PhaseCount(converter);
         }
 
         public int GetCurrentPhase(IntPtr converter)
         {
-            return this.module.wkhtmltopdf_current_phase(converter);
+            return this.module.CurrentPhase(converter);
         }
 
         public string GetPhaseDescription(IntPtr converter, int phase)
         {
-            return Marshal.PtrToStringAnsi(this.module.wkhtmltopdf_phase_description(converter, phase));
+            return Marshal.PtrToStringAnsi(this.module.PhaseDescription(converter, phase));
         }
 
         public string GetProgressString(IntPtr converter)
         {
-            return Marshal.PtrToStringAnsi(this.module.wkhtmltopdf_progress_string(converter));
+            return Marshal.PtrToStringAnsi(this.module.ProgressString(converter));
         }
 
         #region IDisposable Support
@@ -192,18 +244,18 @@ namespace WkHtmlToPdfDotNet
 
         void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!this.disposedValue)
             {
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects).
                 }
 
-                //free unmanaged resources (unmanaged objects) and override a finalizer below.
-                this.module?.wkhtmltopdf_deinit();
+                // Free unmanaged resources (unmanaged objects) and override a finalizer below.
+                this.module?.DeInit();
                 // TODO: set large fields to null.
 
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
 
@@ -227,18 +279,11 @@ namespace WkHtmlToPdfDotNet
 
         private string GetString(byte[] buffer)
         {
-            string value = "";
+            int nullPos = Array.IndexOf<byte>(buffer, 0);
+            if (nullPos == -1)
+                nullPos = buffer.Length;
 
-            int walk = 0;
-
-            while (walk < buffer.Length && buffer[walk] != 0)
-            {
-                walk++;
-            }
-
-            value = Encoding.UTF8.GetString(buffer, 0, walk);
-
-            return value;
+            return Encoding.UTF8.GetString(buffer, 0, nullPos);
         }
     }
 }

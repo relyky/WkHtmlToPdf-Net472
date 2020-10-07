@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -20,20 +20,35 @@
     <PackageProjectUrl>https://github.com/HakanL/WkHtmlToPdf-DotNet</PackageProjectUrl>
     <PackageReleaseNotes>1.2.0 Renamed project and namespace to Haukcode.WkHtmlToPdfDotNet</PackageReleaseNotes>
     <PackageTags>wkhtmltopdf htmltopdf html pdf</PackageTags>
+    <RootNamespace>WkHtmlToPdfDotNet</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="runtimes\linux-x64\native\libwkhtmltox.so" Pack="true" PackagePath="runtimes\linux-x64\native" />
-    <None Include="runtimes\linux-x86\native\libwkhtmltox.so" Pack="true" PackagePath="runtimes\linux-x86\native" />
-    <None Include="runtimes\osx-x64\native\libwkhtmltox.dylib" Pack="true" PackagePath="runtimes\osx-x64\native" />
-    <None Include="runtimes\win-x64\native\wkhtmltox.dll" Pack="true" PackagePath="runtimes\win-x64\native" />
-    <None Include="runtimes\win-x86\native\wkhtmltox.dll" Pack="true" PackagePath="runtimes\win-x86\native" />
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="runtimes\linux-x64\native\libwkhtmltox.so" Pack="true" PackagePath="runtimes\linux-x64\native">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\linux-x86\native\libwkhtmltox.so" Pack="true" PackagePath="runtimes\linux-x86\native">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\osx-x64\native\libwkhtmltox.dylib" Pack="true" PackagePath="runtimes\osx-x64\native">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\win-x64\native\wkhtmltox.dll" Pack="true" PackagePath="runtimes\win-x64\native">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\win-x86\native\wkhtmltox.dll" Pack="true" PackagePath="runtimes\win-x86\native">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
     <PackageReference Include="System.Globalization" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />

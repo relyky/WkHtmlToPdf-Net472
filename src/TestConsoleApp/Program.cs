@@ -41,7 +41,7 @@ namespace WkHtmlToPdfDotNet.ConsoleApp
                     }
                 }
             };
-            
+
             byte[] pdf = converter.Convert(doc);
 
             if (!Directory.Exists("Files"))
