@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
+using System.Threading;
 using WkHtmlToPdfDotNet;
 using WkHtmlToPdfDotNet.Contracts;
 
@@ -8,12 +10,18 @@ namespace WkHtmlToPdfDotNet.UnitTests
     [TestClass]
     public class ConvertTest
     {
-        private static IConverter Converter;
+        private static SynchronizedConverter Converter;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             Converter = new SynchronizedConverter(new PdfTools());
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            Converter.Dispose();
         }
 
         [TestMethod]
@@ -28,12 +36,38 @@ namespace WkHtmlToPdfDotNet.UnitTests
         [TestMethod]
         public void RepeatTableOfContents()
         {
+            int? size = null;
+
             for (int i = 0; i < 3; i++)
             {
                 byte[] pdf = GetPdfWithTableOfContents();
 
+                if (!size.HasValue)
+                    size = pdf.Length;
+
                 Assert.IsNotNull(pdf);
-                Assert.IsTrue(pdf.Length > 10000);
+
+                WriteToPdfFile(pdf);
+
+                Assert.AreEqual(size.Value, pdf.Length);
+            }
+        }
+
+        private void WriteToPdfFile(byte[] pdf, string fileName = "")
+        {
+            if (!Directory.Exists("Files"))
+            {
+                Directory.CreateDirectory("Files");
+            }
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                fileName = $"{DateTime.UtcNow:yyyyMMddHHmmssfff}.pdf";
+            }
+
+            using (var stream = new FileStream(Path.Combine("Files", fileName), FileMode.Create))
+            {
+                stream.Write(pdf, 0, pdf.Length);
             }
         }
 
