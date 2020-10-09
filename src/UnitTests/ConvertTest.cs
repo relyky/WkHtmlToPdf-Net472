@@ -32,7 +32,7 @@ namespace WkHtmlToPdfDotNet.UnitTests
             byte[] pdf = GetPdfWithTableOfContents();
 
             Assert.IsNotNull(pdf);
-            Assert.IsTrue(pdf.Length > 10000);
+            Assert.IsTrue(pdf.Length > 20000);
         }
 
         [TestMethod]
@@ -51,6 +51,7 @@ namespace WkHtmlToPdfDotNet.UnitTests
 
                 WriteToPdfFile(pdf);
 
+                Assert.IsTrue(pdf.Length > 20000);
                 Assert.AreEqual(size.Value, pdf.Length);
             }
         }

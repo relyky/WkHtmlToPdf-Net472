@@ -94,7 +94,7 @@ namespace WkHtmlToPdfDotNet
             var eventArgs = new FinishedArgs()
             {
                 Document = ProcessingDocument,
-                Success = success == 1 ? true : false
+                Success = success == 1
             };
 
             Finished?.Invoke(this, eventArgs);
@@ -225,6 +225,11 @@ namespace WkHtmlToPdfDotNet
             {
                 applySetting(config, name, value.ToString());
             }
+        }
+
+        public virtual void Dispose()
+        {
+            Tools.Dispose();
         }
     }
 }

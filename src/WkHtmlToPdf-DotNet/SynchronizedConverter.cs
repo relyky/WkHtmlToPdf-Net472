@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace WkHtmlToPdfDotNet
 {
-    public class SynchronizedConverter : BasicConverter, IDisposable
+    public class SynchronizedConverter : BasicConverter
     {
         private readonly BlockingCollection<Task> conversions = new BlockingCollection<Task>();
         private readonly Task runningTask;
@@ -53,8 +53,10 @@ namespace WkHtmlToPdfDotNet
             return task.Result;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
+
             this.cts.Cancel();
             this.runningTask.Wait();
             this.runningTask.Dispose();

@@ -6,7 +6,7 @@ using WkHtmlToPdfDotNet.EventDefinitions;
 
 namespace WkHtmlToPdfDotNet.Contracts
 {
-    public interface IConverter
+    public interface IConverter : IDisposable
     {
 
         /// <summary>
