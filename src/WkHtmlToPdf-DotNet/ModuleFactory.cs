@@ -60,7 +60,7 @@ namespace WkHtmlToPdfDotNet
                 }
             }
 
-            throw new NotSupportedException("Current platform is not supported");
+            throw new NotSupportedException("Unable to load native library. The platform may be missing native dependencies (libjpeg62, etc). Or the current platform is not supported.");
         }
 
         [DllImport(@"runtimes\win-x64\native\wkhtmltox", CharSet = CharSet.Unicode, EntryPoint = "wkhtmltopdf_version")]
