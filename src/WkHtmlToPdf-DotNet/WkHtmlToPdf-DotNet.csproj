@@ -10,7 +10,7 @@
 		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-		<Version>1.5.0</Version>
+		<Version>0.999-debug</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>rdvojmoc, HakanL, georgechond94</Authors>
 		<RepositoryUrl>https://github.com/HakanL/WkHtmlToPdf-DotNet</RepositoryUrl>
