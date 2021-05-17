@@ -15,9 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Get main version
+    - name: Checkout repository
+      uses: actions/checkout@master
+    - name: Checkout submodules
+      uses: textbook/git-checkout-submodule-action@master
+      
+    - name: Get main version from /version.json
       id: version
       uses: notiz-dev/github-action-json-property@release
       with:
