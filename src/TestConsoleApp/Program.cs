@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
-using WkHtmlToPdfDotNet;
-using System.Runtime.Loader;
 
 namespace WkHtmlToPdfDotNet.ConsoleApp
 {
