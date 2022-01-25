@@ -104,3 +104,6 @@ If you are using the linux version of docker container for net core provided fro
 ```
 RUN apt-get update -qq && apt-get -y install libgdiplus libc6-dev
 ```
+
+### Recommendations
+Do not use wkhtmltopdf with any untrusted HTML – be sure to sanitize any user-supplied HTML/JS, otherwise it can lead to complete takeover of the server it is running on!
