@@ -54,6 +54,15 @@ namespace WkHtmlToPdfDotNet
                 }
             }
 #endif
+            // Also try to load it with the method that should use the deps file
+            try
+            {
+                return new WkHtmlModule();
+            }
+            catch
+            {
+            }
+
             throw new NotSupportedException("Unable to load native library. The platform may be missing native dependencies (libjpeg62, etc). Or the current platform is not supported.");
         }
 
