@@ -50,6 +50,6 @@ namespace WkHtmlToPdfDotNet
         /// Url for a HTML document to use for the footer. Default = ""
         /// </summary>
         [WkHtml("footer.htmlUrl")]
-        public string HtmUrl { get; set; }
+        public string HtmlUrl { get; set; }
     }
 }
