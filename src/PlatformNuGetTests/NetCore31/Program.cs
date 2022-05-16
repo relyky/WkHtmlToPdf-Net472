@@ -8,8 +8,6 @@ namespace PlatformNuGetTests
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine($"Runtime identifier = {System.Runtime.InteropServices.RuntimeInformation.RuntimeIdentifier}");
-
             var converter = new BasicConverter(new PdfTools());
 
             converter.PhaseChanged += (sender, e) =>
