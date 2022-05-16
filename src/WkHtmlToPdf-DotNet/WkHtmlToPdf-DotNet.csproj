@@ -41,6 +41,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </None>
+    <None Include="runtimes\linux-arm64\native\libwkhtmltox.so" Pack="true" PackagePath="runtimes\linux-arm64\native">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </None>
     <None Include="runtimes\linux-x86\native\libwkhtmltox.so" Pack="true" PackagePath="runtimes\linux-x86\native">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackageCopyToOutput>true</PackageCopyToOutput>

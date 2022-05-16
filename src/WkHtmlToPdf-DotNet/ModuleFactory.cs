@@ -52,6 +52,14 @@ namespace WkHtmlToPdfDotNet
                 catch
                 {
                 }
+
+                try
+                {
+                    return new WkHtmlModuleLinuxArm64();
+                }
+                catch
+                {
+                }
             }
 #endif
             // Also try to load it with the method that should use the deps file
