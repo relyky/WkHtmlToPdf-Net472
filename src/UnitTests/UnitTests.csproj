@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WkHtmlToPdf-DotNet\WkHtmlToPdf-DotNet.csproj" />
+    <ProjectReference Include="..\WkHtmlToPdf-Net472\WkHtmlToPdf-Net472.csproj" />
   </ItemGroup>
 
   <ItemGroup>

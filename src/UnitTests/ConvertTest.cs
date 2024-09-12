@@ -9,81 +9,81 @@ using WkHtmlToPdfDotNet.Contracts;
 
 namespace WkHtmlToPdfDotNet.UnitTests
 {
-    [TestClass]
-    public class ConvertTest
+  [TestClass]
+  public class ConvertTest
+  {
+    private static SynchronizedConverter Converter;
+
+    [ClassInitialize]
+    public static void ClassInitialize(TestContext context)
     {
-        private static SynchronizedConverter Converter;
+      Converter = new SynchronizedConverter(new PdfTools());
+    }
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            Converter = new SynchronizedConverter(new PdfTools());
-        }
+    [ClassCleanup]
+    public static void ClassCleanup()
+    {
+      Converter.Dispose();
+    }
 
-        [ClassCleanup]
-        public static void ClassCleanup()
-        {
-            Converter.Dispose();
-        }
+    [TestMethod]
+    public void ConvertToPdf()
+    {
+      byte[] pdf = GetPdfWithTableOfContents();
 
-        [TestMethod]
-        public void ConvertToPdf()
-        {
-            byte[] pdf = GetPdfWithTableOfContents();
+      Assert.IsNotNull(pdf);
+      Assert.IsTrue(pdf.Length > 20000);
+    }
 
-            Assert.IsNotNull(pdf);
-            Assert.IsTrue(pdf.Length > 20000);
-        }
+    [TestMethod]
+    public void RepeatTableOfContents()
+    {
+      int? size = null;
 
-        [TestMethod]
-        public void RepeatTableOfContents()
-        {
-            int? size = null;
+      for (int i = 0; i < 3; i++)
+      {
+        byte[] pdf = GetPdfWithTableOfContents();
 
-            for (int i = 0; i < 3; i++)
-            {
-                byte[] pdf = GetPdfWithTableOfContents();
+        size = size ?? pdf.Length;
 
-                size ??= pdf.Length;
+        Assert.IsNotNull(pdf);
 
-                Assert.IsNotNull(pdf);
+        WriteToPdfFile(pdf);
 
-                WriteToPdfFile(pdf);
+        Assert.IsTrue(pdf.Length > 20000);
+        Assert.AreEqual(size.Value, pdf.Length);
+      }
+    }
 
-                Assert.IsTrue(pdf.Length > 20000);
-                Assert.AreEqual(size.Value, pdf.Length);
-            }
-        }
+    private void WriteToPdfFile(byte[] pdf, string fileName = "")
+    {
+      if (!Directory.Exists("Files"))
+      {
+        Directory.CreateDirectory("Files");
+      }
 
-        private void WriteToPdfFile(byte[] pdf, string fileName = "")
-        {
-            if (!Directory.Exists("Files"))
-            {
-                Directory.CreateDirectory("Files");
-            }
+      if (string.IsNullOrEmpty(fileName))
+      {
+        fileName = $"{DateTime.UtcNow:yyyyMMddHHmmssfff}.pdf";
+      }
 
-            if (string.IsNullOrEmpty(fileName))
-            {
-                fileName = $"{DateTime.UtcNow:yyyyMMddHHmmssfff}.pdf";
-            }
+      using (var stream = new FileStream(Path.Combine("Files", fileName), FileMode.Create))
+      {
+        stream.Write(pdf, 0, pdf.Length);
+      }
+    }
 
-            using (var stream = new FileStream(Path.Combine("Files", fileName), FileMode.Create))
-            {
-                stream.Write(pdf, 0, pdf.Length);
-            }
-        }
-
-        [TestMethod]
-        public void NormalConvertToPdf()
-        {
-            var doc = new HtmlToPdfDocument()
-            {
-                GlobalSettings = {
+    [TestMethod]
+    public void NormalConvertToPdf()
+    {
+      var doc = new HtmlToPdfDocument()
+      {
+        GlobalSettings = {
                     ColorMode = ColorMode.Color,
                     Orientation = Orientation.Landscape,
                     PaperSize = PaperKind.A4,
                 },
-                Objects = {
+        Objects = {
                     new ObjectSettings() {
                         PagesCount = true,
                         HtmlContent = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur mauris eget ultrices iaculis. Ut et odio viverra, molestie lectus nec, venenatis turpis. Nulla quis euismod nisl. Duis scelerisque eros nec dui facilisis, sit amet porta odio varius. Praesent vitae sollicitudin leo. Sed vitae quam in massa eleifend porta. Aliquam pulvinar orci dapibus porta laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed commodo tortor eget dolor hendrerit dapibus.
@@ -96,83 +96,83 @@ namespace WkHtmlToPdfDotNet.UnitTests
                         FooterSettings = { FontSize = 9, Right = "Page [page] of [toPage]" }
                     }
                 }
-            };
+      };
 
-            byte[] pdf = Converter.Convert(doc);
+      byte[] pdf = Converter.Convert(doc);
 
-            Assert.IsNotNull(pdf);
-            Assert.IsTrue(pdf.Length > 10000);
-        }
+      Assert.IsNotNull(pdf);
+      Assert.IsTrue(pdf.Length > 10000);
+    }
 
-        [TestMethod]
-        public void ConvertToPdfWithImg()
-        {
-            var redFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "assets", "red.jpg");
-            var blueFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "assets", "blue.jpg");
+    [TestMethod]
+    public void ConvertToPdfWithImg()
+    {
+      var redFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "assets", "red.jpg");
+      var blueFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "assets", "blue.jpg");
 
-            var docRed = new HtmlToPdfDocument()
-            {
-                GlobalSettings = {
+      var docRed = new HtmlToPdfDocument()
+      {
+        GlobalSettings = {
                     ColorMode = ColorMode.Color,
                     Orientation = Orientation.Landscape,
                     PaperSize = PaperKind.A4
                 },
-                Objects = {
+        Objects = {
                     new ObjectSettings() {
                         HtmlContent = $"<img src=\"{redFile}\">",
                         WebSettings = { DefaultEncoding = "utf-8" }
                     }
                 }
-            };
+      };
 
-            var docBlue = new HtmlToPdfDocument()
-            {
-                GlobalSettings = {
+      var docBlue = new HtmlToPdfDocument()
+      {
+        GlobalSettings = {
                     ColorMode = ColorMode.Color,
                     Orientation = Orientation.Landscape,
                     PaperSize = PaperKind.A4
                 },
-                Objects = {
+        Objects = {
                     new ObjectSettings() {
                         HtmlContent = $"<img src=\"{blueFile}\">",
                         WebSettings = { DefaultEncoding = "utf-8" }
                     }
                 }
-            };
+      };
 
-            byte[] pdfRed = Converter.Convert(docRed);
-            byte[] pdfBlue = Converter.Convert(docBlue);
+      byte[] pdfRed = Converter.Convert(docRed);
+      byte[] pdfBlue = Converter.Convert(docBlue);
 
-            CollectionAssert.AreNotEqual(pdfRed, pdfBlue);
-        }
-
-        private byte[] GetPdfWithTableOfContents(string templatePage = "template.html")
-        {
-            var globalSettings = new GlobalSettings
-            {
-                PaperSize = PaperKind.A4,
-                Orientation = Orientation.Portrait
-            };
-            var templateSettings = new ObjectSettings
-            {
-                Page = templatePage
-            };
-
-            var tableOfContentSettings = new TableOfContentsSettings
-            {
-                IsTableOfContent = true
-            };
-
-            var doc = new HtmlToPdfDocument
-            {
-                GlobalSettings = globalSettings,
-
-                Objects = { tableOfContentSettings, templateSettings }
-            };
-
-            byte[] pdf = Converter.Convert(doc);
-
-            return pdf;
-        }
+      CollectionAssert.AreNotEqual(pdfRed, pdfBlue);
     }
+
+    private byte[] GetPdfWithTableOfContents(string templatePage = "template.html")
+    {
+      var globalSettings = new GlobalSettings
+      {
+        PaperSize = PaperKind.A4,
+        Orientation = Orientation.Portrait
+      };
+      var templateSettings = new ObjectSettings
+      {
+        Page = templatePage
+      };
+
+      var tableOfContentSettings = new TableOfContentsSettings
+      {
+        IsTableOfContent = true
+      };
+
+      var doc = new HtmlToPdfDocument
+      {
+        GlobalSettings = globalSettings,
+
+        Objects = { tableOfContentSettings, templateSettings }
+      };
+
+      byte[] pdf = Converter.Convert(doc);
+
+      return pdf;
+    }
+  }
 }

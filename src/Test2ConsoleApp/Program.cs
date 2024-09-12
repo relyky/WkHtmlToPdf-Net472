@@ -43,13 +43,12 @@ namespace WkHtmlToPdfDotNet.Test2ConsoleApp
 
 <body>
 
+<h1>此頁是封面</h1>
 <img src=""forkit.gif"" id=""octocat"" alt="""" />
 
 <!-- Feel free to change this text here -->
 <p>
-  Fork me? Fork you, @octocat!
-</p>
-<p>
+  Fork me? Fork you, @octocat!<br/>
   Sean made a change
 </p>
 
