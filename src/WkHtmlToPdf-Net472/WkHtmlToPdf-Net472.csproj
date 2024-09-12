@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{801A1E4D-61E6-4595-9358-864333A4A45C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WkHtmlToPdf_Net472</RootNamespace>
+    <AssemblyName>WkHtmlToPdf-Net472</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BasicConverter.cs" />
+    <Compile Include="Contracts\IConverter.cs" />
+    <Compile Include="Contracts\IDocument.cs" />
+    <Compile Include="Contracts\IObject.cs" />
+    <Compile Include="Contracts\ISetting.cs" />
+    <Compile Include="Contracts\ITools.cs" />
+    <Compile Include="Documents\HtmlToPdfDocument.cs" />
+    <Compile Include="EventDefinitions\ErrorArgs.cs" />
+    <Compile Include="EventDefinitions\FinishedArgs.cs" />
+    <Compile Include="EventDefinitions\PhaseChangedArgs.cs" />
+    <Compile Include="EventDefinitions\ProgressChangedArgs.cs" />
+    <Compile Include="EventDefinitions\WarningArgs.cs" />
+    <Compile Include="IWkHtmlModule.cs" />
+    <Compile Include="ModuleFactory.cs" />
+    <Compile Include="PdfTools.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\CoverSettings.cs" />
+    <Compile Include="Settings\FooterSettings.cs" />
+    <Compile Include="Settings\GlobalSettings.cs" />
+    <Compile Include="Settings\HeaderSettings.cs" />
+    <Compile Include="Settings\LoadSettings.cs" />
+    <Compile Include="Settings\MarginSettings.cs" />
+    <Compile Include="Settings\ObjectSettings.cs" />
+    <Compile Include="Settings\PechkinPaperSize.cs" />
+    <Compile Include="Settings\TableOfContentsSettings.cs" />
+    <Compile Include="Settings\Unit.cs" />
+    <Compile Include="Settings\WebSettings.cs" />
+    <Compile Include="SynchronizedConverter.cs" />
+    <Compile Include="Utils\CustomUnmanagedType.cs" />
+    <Compile Include="Utils\IntCallback.cs" />
+    <Compile Include="Utils\PaperKind.cs" />
+    <Compile Include="Utils\StringCallback.cs" />
+    <Compile Include="Utils\VoidCallback.cs" />
+    <Compile Include="Utils\WkHtmlAttribute.cs" />
+    <Compile Include="WkHtmlModule.cs" />
+    <Compile Include="WkHtmlModuleLinux64.cs" />
+    <Compile Include="WkHtmlModuleLinux86.cs" />
+    <Compile Include="WkHtmlModuleLinuxArm64.cs" />
+    <Compile Include="WkHtmlModuleWin64.cs" />
+    <Compile Include="WkHtmlModuleWin86.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="runtimes\.git" />
+    <None Include="runtimes\linux-arm64\native\libwkhtmltox.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\linux-x64\native\libwkhtmltox.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\linux-x86\native\libwkhtmltox.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\osx-x64\native\libwkhtmltox.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes\README.md" />
+    <None Include="WkHtmlToPdf-Net472.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="runtimes\win-x64\native\wkhtmltox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\wkhtmltox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
