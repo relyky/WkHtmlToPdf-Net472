@@ -4,9 +4,9 @@
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>Rely</authors>
+    <authors>$author$</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
+    <license type="expression">LGPL-3.0-or-later</license>
     <!-- <icon>icon.png</icon> -->
     <projectUrl>https://github.com/relyky/WkHtmlToPdf-Net472</projectUrl>
     <description>$description$</description>
