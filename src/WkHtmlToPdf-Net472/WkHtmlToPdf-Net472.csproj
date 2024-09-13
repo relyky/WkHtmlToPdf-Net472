@@ -86,19 +86,6 @@
     <Compile Include="WkHtmlModuleWin86.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="runtimes\.git" />
-    <None Include="runtimes\linux-arm64\native\libwkhtmltox.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="runtimes\linux-x64\native\libwkhtmltox.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="runtimes\linux-x86\native\libwkhtmltox.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="runtimes\osx-x64\native\libwkhtmltox.dylib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="runtimes\README.md" />
     <None Include="WkHtmlToPdf-Net472.nuspec" />
   </ItemGroup>
