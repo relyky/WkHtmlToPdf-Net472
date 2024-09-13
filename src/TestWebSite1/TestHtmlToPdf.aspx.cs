@@ -12,14 +12,16 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
 {
   protected bool f_loading;
 
+  /// <summary>
+  /// Let IConverter instance be singleton.
+  /// </summary>
   protected IConverter PdfConverter
   {
     get
     {
       if (Application["PdfConverter"] == null)
-      {
         Application["PdfConverter"] = new SynchronizedConverter(new PdfTools());
-      }
+
 
       return (IConverter)Application["PdfConverter"];
     }
@@ -125,14 +127,15 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
     };
 
     //# Convert
-    //byte[] fileBlob = PdfConverter.Convert(doc);
-    //return fileBlob;
+    byte[] fileBlob = PdfConverter.Convert(doc);
+    return fileBlob;
 
-    using (var converter = new BasicConverter(new PdfTools()))
-    {
-      byte[] fileBlob = converter.Convert(doc);
-      return fileBlob;
-    }
+    //using (var converter = new BasicConverter(new PdfTools()))
+    //{
+    //  byte[] fileBlob = converter.Convert(doc);
+    //  return fileBlob;
+    //}
+    //※ 當執行多次會不正常！推論是資源沒釋放乾淨？
   }
 
 }
