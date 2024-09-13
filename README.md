@@ -16,6 +16,11 @@ Library can be installed through Nuget. Run command below from the package manag
 PM> Install-Package WkHtmlToPdf-Net472
 ```
 
+#### WebForm site project
+You have to copy `wkhtmltox.dll` in `runtimes` to `Bin`, as the following image:
+
+![runtimes](./TestResult/Bin_runtimes_native.png)
+
 ### Fork
 This library is forked from [Haukcode.WkHtmlToPdfDotNet v1.5.93](https://www.nuget.org/packages/Haukcode.WkHtmlToPdfDotNet/). 
 The main modification is to allow execution on the .NET Framework 4.7.2 platform.
