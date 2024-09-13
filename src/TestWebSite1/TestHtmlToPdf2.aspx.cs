@@ -105,6 +105,29 @@ public partial class TestHtmlToPdf2 : System.Web.UI.Page
         Margins = new MarginSettings() { Top = 10, Left = 10 },
       },
       Objects = {
+        new CoverSettings()
+        {
+          HtmlContent = @"
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <title>This is conver</title>
+  <style>
+    body { font-family: '微軟正黑體'; }
+    .center { text-align: center; }
+  </style>
+</head>
+<body class='center'>  
+  <h1>此頁是封面</h1>
+  <h1>This is cover</h1>
+  <hr style='margin-top:2mm;margin-bottom:2mm;'>
+  <img src='https://www.w3schools.com/html/pic_trulli.jpg' width='500' height='333'>
+  <hr style='margin-top:2mm;margin-bottom:2mm;'>
+</body>
+</html>
+"
+        },
         new ObjectSettings() {
           PagesCount = true,
           HtmlContent = html,
