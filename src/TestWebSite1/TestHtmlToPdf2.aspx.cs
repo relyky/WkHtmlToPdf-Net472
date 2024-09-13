@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using WkHtmlToPdfDotNet;
 using WkHtmlToPdfDotNet.Contracts;
 
-public partial class TestHtmlToPdf : System.Web.UI.Page
+public partial class TestHtmlToPdf2 : System.Web.UI.Page
 {
   protected bool f_loading;
 
@@ -28,7 +28,7 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
 
   protected void Page_Load(object sender, EventArgs e)
   {
-    if (this.IsPostBack)
+    if(this.IsPostBack)
     {
 
     }
@@ -45,7 +45,7 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
       byte[] fileBlob = MakePdfReport();
 
       //# 下載檔案--存入暫存檔
-      string filename = $"ReportSample_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf";
+      string filename = $"LandscapeSample_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf";
       string filePath = Path.Combine(@"D:\Temp", filename);
       File.WriteAllBytes(filePath, fileBlob);
 
@@ -73,18 +73,21 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
 
   protected string DoMakeHtmlPage(/* data model */)
   {
-    string htmlTpl = File.ReadAllText(Server.MapPath("~/Template/ReportSampleTpl.html"));
-    return htmlTpl;
-
-    //    return @"
-    //<html>
-    //<head>
-    //</head>
-    //<body>
-    //  <h1>我是報表</h1>
-    //</body>
-    //</html>
-    //";
+    return @"
+<html>
+<head>
+</head>
+<body>
+  <h1>測試橫印報表 H1</h1>
+  <h2>測試橫印報表 H2</h2>
+  <h3>測試橫印報表 H3</h3>
+  <h4>測試橫印報表 H4</h4>
+  <h5>測試橫印報表 H5</h5>
+  <h6>測試橫印報表 H6</h6>
+  <p>測試橫印報表 paragraph</p>
+</body>
+</html>
+";
   }
 
   /// <summary>
@@ -97,7 +100,7 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
     {
       GlobalSettings = {
         ColorMode = ColorMode.Color,
-        Orientation = WkHtmlToPdfDotNet.Orientation.Portrait,
+        Orientation = WkHtmlToPdfDotNet.Orientation.Landscape,
         PaperSize = PaperKind.A4,
         Margins = new MarginSettings() { Top = 10, Left = 10 },
       },
@@ -136,5 +139,4 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
     //}
     //※ 當執行多次會不正常！推論是資源沒釋放乾淨？
   }
-
 }
