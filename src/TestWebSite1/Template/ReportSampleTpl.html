@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <style>
+    /* A4 size: 297mm x 210mm - 用於進階控制分頁，一般不需要。
+        .page {
+          position: relative;
+          width: 190mm;
+          height: 277mm;
+          display: block;
+          box-sizing: border-box;
+          margin-left: auto;
+          margin-right: auto;
+          font-size: 14px;
+          font-family: '微軟正黑體', 'Microsoft JhengHei','Microsoft YaHei', sans-serif;
+        } */
+
+    body {
+      box-sizing: border-box;
+      font-size: 14px;
+      font-family: '微軟正黑體', 'Microsoft JhengHei','Microsoft YaHei', sans-serif;
+    }
+
+      /* 可在開發時在 browser 預算寬度。但無法預算高度。 */
+      body.dev-preview {
+        @media screen {
+          margin-left: auto;
+          margin-right: auto;
+          width: 190mm;
+          outline: dashed pink 1px;
+        }
+      }
+
+    .break-page {
+      page-break-before: always;
+    }
+
+    .watermark {
+      /*background-image: url("https://localhost/image/watermark_draft.png");*/
+      background-image: url("https://placeit-img-1-p.cdn.aws.placeit.net/uploads/stage/stage_image/34341/optimized_product_thumb_simple-watermark-maker-with-custom-text.jpg");
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    .big-font {
+      color: blue;
+      font-size: 20mm;
+    }
+
+    .box {
+      border: dashed 2px red;
+      padding: 2mm;
+    }
+
+
+    .barcode-sticker {
+      display: inline-block;
+      padding: 0 2mm;
+      margin: 2mm;
+      border: solid 2px darkgrey;
+      border-radius: 2mm;
+    }
+
+      .barcode-sticker > img {
+        display: inline-block;
+        line-height: 0;
+        vertical-align: middle;
+        margin: 1px 0;
+      }
+
+      .barcode-sticker > div.label {
+        display: inline-block;
+        vertical-align: middle;
+        color: #8D1485;
+        font-weight: 600;
+      }
+  </style>
+</head>
+<body class="dev-preview watermark">
+    <h1>HTML轉PDF測試：銀行簡介</h1>
+    <div class="big-font" style="font-family:標楷體">唷~ 太神了傑克</div>
+    <p>WatermarkImageUrl: </p>
+
+    <p>&emsp;&emsp;本行前身為歷史悠久的「台北三信」，創立於民國7年4月，原名「艋舺信用組合」，於民國35年7月艋舺信用組合奉令重新改組，更名為「台北市艋舺信用合作社」。而後因改制關係，台北市艋舺信用合作社於民國36年更名為「有限責任台北市第三信用合作社」。民國55年6月再度因制度更改，變更有限責任組織為保證責任組織，並更名為「保證責任台北市第三信用合作社」，即改制銀行前的「台北三信」。</p>
+    <p>&emsp;&emsp;70年代後期，國內金融環境開始產生顯著的變動，受利率自由化之影響，銀行的業務範圍及營業據點逐漸擴充，進而衝擊到原先信用合作社的市場。財政部於民國84年11月公佈「信合社改制銀行辦法」，本行即著手進行申請改制作業，於民國86年1月改制成為「誠泰商業銀行」，其後為配合政府政策，協助解決金融問題，並為擴大營運規模，分別於民國86年及87年概括承受新竹二信與台中八信，同時受惠於銀行法一年可申設五家分行之規定，將營業區域擴大至台北、桃園、新竹等地區；90年9月初概括承受嘉義二信後，旋即在行政院金融重建基金機制運作下，於月中概括承受岡山信用合作社，迅速擴大服務範圍，一舉將業務拓展至全台灣，分行家數達到80家。</p>
+    <hr style='margin-top:2mm;margin-bottom:2mm;'>
+    <img src='https://www.w3schools.com/html/pic_trulli.jpg' width='500' height='333'>
+    <hr style='margin-top:2mm;margin-bottom:2mm;'>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr>
+            <tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr>
+            <tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr>
+            <tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr>
+            <tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr>
+            <tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr>
+            <tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr>
+            <tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr>
+            <tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr>
+            <tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr>
+            <tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr>
+            <tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr>
+            <tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr>
+            <tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr>
+            <tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr>
+            <tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr>
+            <tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr>
+            <tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr>
+            <tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr>
+            <tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr>
+            <tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr>
+            <tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr>
+            <tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr>
+            <tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr>
+            <tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr>
+        </tbody>
+    </table>
+
+    <h1 class="break-page">顯示清單 <small style="color:darkorange;">(強制分頁控制)</small></h1>
+    <ol><li>image1.jpg JPEG</li><li>image2.png PNG</li><li>image3.gif GIF</li></ol>
+
+    <h1 class="h3">Base64 Image</h1>
+    <div class="barcode-sticker">
+        <img alt="A10011" src="data:image/png;base64,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" />
+        <div class="label">
+            <div>The QR Code caption</div>
+            <div>A10011</div>
+        </div>
+    </div>
+    <div class="barcode-sticker">
+        <img alt="A10011" src="data:image/png;base64,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" />
+        <div class="label">
+            <div>The QR Code caption</div>
+            <div>A10011</div>
+        </div>
+    </div>
+
+    <h1>小表格</h1>
+    <table style="width:60%;margin-left:20%;">
+        <tr>
+            <th>Company</th>
+            <th>Contact</th>
+            <th>Country</th>
+        </tr>
+        <tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr>
+        <tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr>
+        <tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr>
+        <tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr>
+        <tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr>
+    </table>
+</body>
+</html>

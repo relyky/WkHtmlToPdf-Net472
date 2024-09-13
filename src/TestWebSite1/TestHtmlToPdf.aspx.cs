@@ -6,10 +6,24 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
 
 public partial class TestHtmlToPdf : System.Web.UI.Page
 {
   protected bool f_loading;
+
+  protected IConverter PdfConverter
+  {
+    get
+    {
+      if (Application["PdfConverter"] == null)
+      {
+        Application["PdfConverter"] = new SynchronizedConverter(new PdfTools());
+      }
+
+      return (IConverter)Application["PdfConverter"];
+    }
+  }
 
   protected void Page_Load(object sender, EventArgs e)
   {
@@ -58,15 +72,18 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
 
   protected string DoMakeHtmlPage(/* data model */)
   {
-    return @"
-<html>
-<head>
-</head>
-<body>
-  <h1>我是報表</h1>
-</body>
-</html>
-";
+    string htmlTpl = File.ReadAllText(Server.MapPath("~/Template/ReportSampleTpl.html"));
+    return htmlTpl;
+
+    //    return @"
+    //<html>
+    //<head>
+    //</head>
+    //<body>
+    //  <h1>我是報表</h1>
+    //</body>
+    //</html>
+    //";
   }
 
   /// <summary>
@@ -81,33 +98,36 @@ public partial class TestHtmlToPdf : System.Web.UI.Page
         ColorMode = ColorMode.Color,
         Orientation = WkHtmlToPdfDotNet.Orientation.Portrait,
         PaperSize = PaperKind.A4,
-        Margins = new MarginSettings() { Top = 26, Left = 10 },
+        Margins = new MarginSettings() { Top = 10, Left = 10 },
       },
       Objects = {
-      new ObjectSettings() {
-        PagesCount = true,
-        HtmlContent = html,
-        WebSettings = { DefaultEncoding = "utf-8", PrintMediaType = true },
-        LoadSettings = new LoadSettings { ZoomFactor = 1.26 }, //1.26
-        HeaderSettings = {
-          FontSize = 9,
-          Right = "Date: [date]",
-          Line = false,
-          Spacing = 0, // 1.8, // 2.812,
-          //HtmlUrl = "https://localhost:7248/reportResource/cpaheader.html" // 必需是完整的URL
-        },
-        FooterSettings = {
-          FontSize = 9,
-          Right = "Page [page] of [toPage]",
-          Line = true,
-          Spacing = 2.812,
-          HtmlUrl = ""
-        },
+        new ObjectSettings() {
+          PagesCount = true,
+          HtmlContent = html,
+          WebSettings = { DefaultEncoding = "utf-8", PrintMediaType = true },
+          LoadSettings = new LoadSettings { ZoomFactor = 1.26 }, //1.26
+          HeaderSettings = {
+            FontSize = 9,
+            Right = "Date: [date]",
+            Line = false,
+            Spacing = 2.812,
+            //HtmlUrl = "https://localhost:7248/reportResource/cpaheader.html" // 必需是完整的URL
+          },
+          FooterSettings = {
+            FontSize = 9,
+            Right = "Page [page] of [toPage]",
+            Line = true,
+            Spacing = 2.812,
+            HtmlUrl = ""
+          },
+        }
       }
-    }
     };
 
     //# Convert
+    //byte[] fileBlob = PdfConverter.Convert(doc);
+    //return fileBlob;
+
     using (var converter = new BasicConverter(new PdfTools()))
     {
       byte[] fileBlob = converter.Convert(doc);
