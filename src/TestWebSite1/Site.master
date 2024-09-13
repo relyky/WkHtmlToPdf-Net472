@@ -51,6 +51,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">首頁</a></li>
+                        <li><a runat="server" href="~/TestHtmlToPdf">TestHtmlToPdf</a></li>
                         <li><a runat="server" href="~/About">關於</a></li>
                         <li><a runat="server" href="~/Contact">連絡人</a></li>
                     </ul>
